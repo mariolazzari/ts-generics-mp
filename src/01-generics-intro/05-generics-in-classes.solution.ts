@@ -19,6 +19,6 @@ it("Should create an object containing props", () => {
   expect(result).toEqual({ a: 1, b: 2, c: 3 });
 
   type tests = [
-    Expect<Equal<typeof result, { a: number; b: number; c: number }>>,
+    Expect<Equal<typeof result, { a: number; b: number; c: number }>>
   ];
 });
