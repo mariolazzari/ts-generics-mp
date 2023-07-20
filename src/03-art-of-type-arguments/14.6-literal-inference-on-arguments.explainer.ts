@@ -29,9 +29,9 @@ const result3 = acceptsValueInAnObjectFieldWithConstraint({ input: "abc" });
 const acceptsValueWithObjectConstraint = <
   T extends {
     input: string;
-  },
+  }
 >(
-  obj: T,
+  obj: T
 ) => {
   return obj.input;
 };

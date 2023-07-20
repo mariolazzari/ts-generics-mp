@@ -1,9 +1,15 @@
 import { expect, it, describe } from "vitest";
 import { Equal, Expect } from "../helpers/type-utils";
 
-export const getHomePageFeatureFlags = (
-  config: unknown,
-  override: (flags: unknown) => unknown
+export const getHomePageFeatureFlags = <T>(
+  config: {
+    rawConfig: {
+      featureFlags: {
+        homePage: T;
+      };
+    };
+  },
+  override: (flags: T) => T
 ) => {
   return override(config.rawConfig.featureFlags.homePage);
 };
@@ -29,7 +35,7 @@ describe("getHomePageFeatureFlags", () => {
   it("Should return the homePage flag object", () => {
     const flags = getHomePageFeatureFlags(
       EXAMPLE_CONFIG,
-      (defaultFlags) => defaultFlags
+      defaultFlags => defaultFlags
     );
 
     expect(flags).toEqual({
@@ -43,7 +49,7 @@ describe("getHomePageFeatureFlags", () => {
   });
 
   it("Should allow you to modify the result", () => {
-    const flags = getHomePageFeatureFlags(EXAMPLE_CONFIG, (defaultFlags) => ({
+    const flags = getHomePageFeatureFlags(EXAMPLE_CONFIG, defaultFlags => ({
       ...defaultFlags,
       showBanner: false,
     }));
